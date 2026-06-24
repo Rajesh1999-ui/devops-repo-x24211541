@@ -72,12 +72,25 @@ WSGI_APPLICATION = 'e_store.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': str(BASE_DIR / 'db.sqlite3'),
+#     }
+# }
+
+
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': str(BASE_DIR / 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'devops-rds-x24211541',
+        'USER': 'postgres',
+        'PASSWORD': 'devops-rds-x24211541',
+        'HOST': 'devops-rds-x24211541.c20gnw8fydnq.us-east-1.rds.amazonaws.com',  # e.g., 'localhost' or remote host
+        'PORT': '5432',          # default PostgreSQL port
     }
 }
+
 
 AUTH_USER_MODEL = 'accounts.User'
 

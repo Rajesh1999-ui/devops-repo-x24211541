@@ -6,3 +6,4 @@ class CartConfig(AppConfig):
     """Configuration class for cart app."""
     default_auto_field = 'django.db.models.BigAutoField'
     name = 'cart'
+    

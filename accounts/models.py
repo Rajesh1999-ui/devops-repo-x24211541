@@ -41,3 +41,4 @@ class User(AbstractBaseUser):
     def get_likes_count(self):
         """Get count of user's liked products."""
         return self.likes.count()
+        

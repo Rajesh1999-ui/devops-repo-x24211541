@@ -12,3 +12,4 @@ class QuantityForm(forms.Form):
             attrs={'class': 'form-control mt-1', 'placeholder': 'quantity'}
         )
     )
+    

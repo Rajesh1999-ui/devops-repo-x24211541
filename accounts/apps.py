@@ -6,3 +6,4 @@ class AccountsConfig(AppConfig):
     """Configuration class for accounts app."""
     default_auto_field = 'django.db.models.BigAutoField'
     name = 'accounts'
+    

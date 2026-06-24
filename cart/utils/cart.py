@@ -56,3 +56,4 @@ class Cart:
         """Clear the cart."""
         del self.session[CART_SESSION_ID]
         self.save()
+        

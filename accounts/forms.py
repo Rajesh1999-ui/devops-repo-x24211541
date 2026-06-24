@@ -57,3 +57,4 @@ class EditProfileForm(forms.ModelForm):
         """Meta class for EditProfileForm."""
         model = User
         fields = ['full_name', 'email']
+        

@@ -20,26 +20,122 @@ def create_manager():
         user.save()
 
 
+# def manager_login(request):
+#     if request.method == 'POST':
+#         form = ManagerLoginForm(request.POST)
+#         if form.is_valid():
+#             data = form.cleaned_data
+#             user = authenticate(
+#                 request, email=data['email'], password=data['password']
+#             )
+#             if user is not None and user.is_manager:
+#                 login(request, user)
+#                 return redirect('dashboard:products')
+#             else:
+#                 messages.error(
+#                     request, 'username or password is wrong', 'danger'
+#                 )
+#                 return redirect('accounts:manager_login')
+#     else:
+#         form = ManagerLoginForm()
+#     context = {'form': form}
+#     return render(request, 'manager_login.html', context)
+
+
+# def manager_login(request):
+#     if request.method == 'POST':
+#         form = ManagerLoginForm(request.POST)
+#         if form.is_valid():
+#             data = form.cleaned_data
+#             user = authenticate(
+#                 request, email=data['email'], password=data['password']
+#             )
+#             if user is not None and user.is_manager:
+#                 login(request, user)
+#                 messages.success(
+#                     request, 'Welcome Manager', 'success'
+#                 )
+#                 return redirect('dashboard:products')
+#             else:
+#                 messages.error(
+#                     request, 'username or password is wrong', 'danger'
+#                 )
+#                 return redirect('accounts:manager_login')
+#     else:
+#         form = ManagerLoginForm()
+#     context = {'form': form}
+#     return render(request, 'manager_login.html', context)
+
+
+# def manager_login(request):
+#     print("========== MANAGER LOGIN ==========")
+
+#     if request.method == 'POST':
+#         form = ManagerLoginForm(request.POST)
+#         if form.is_valid():
+#             data = form.cleaned_data
+#             user = authenticate(
+#                 request,
+#                 email=data['email'],
+#                 password=data['password']
+#             )
+
+#             print(user)
+#             if user:
+#                 print(user.email)
+#                 print(user.is_manager)
+
+#             if user is not None and user.is_manager:
+#                 login(request, user)
+#                 messages.success(request, 'Welcome Manager')
+#                 return redirect('dashboard:products')
+
+
 def manager_login(request):
+    print("========== MANAGER LOGIN ==========")
+
     if request.method == 'POST':
         form = ManagerLoginForm(request.POST)
+
         if form.is_valid():
             data = form.cleaned_data
+
             user = authenticate(
-                request, email=data['email'], password=data['password']
+                request,
+                email=data['email'],
+                password=data['password']
             )
+
+            print(user)
+
+            if user:
+                print(user.email)
+                print(user.is_manager)
+
             if user is not None and user.is_manager:
                 login(request, user)
+                messages.success(request, 'Welcome Manager', 'success')
                 return redirect('dashboard:products')
+
             else:
                 messages.error(
-                    request, 'username or password is wrong', 'danger'
+                    request,
+                    'Invalid credentials or not a manager',
+                    'danger'
                 )
                 return redirect('accounts:manager_login')
+
     else:
         form = ManagerLoginForm()
-    context = {'form': form}
+
+    context = {
+        'form': form
+    }
+
     return render(request, 'manager_login.html', context)
+
+
+
 
 
 def user_register(request):
@@ -50,6 +146,7 @@ def user_register(request):
             user = User.objects.create_user(
                 data['email'], data['full_name'], data['password']
             )
+            
             return redirect('accounts:user_login')
     else:
         form = UserRegistrationForm()
@@ -58,6 +155,7 @@ def user_register(request):
 
 
 def user_login(request):
+    print("========== USER LOGIN ==========")
     if request.method == 'POST':
         form = UserLoginForm(request.POST)
         if form.is_valid():
@@ -67,6 +165,9 @@ def user_login(request):
             )
             if user is not None:
                 login(request, user)
+                messages.success(
+                    request, 'Welcome User', 'success'
+                )
                 return redirect('shop:home_page')
             else:
                 messages.error(

@@ -1,8 +1,7 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-# from django.core.paginator import Paginator
-from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.core.paginator import Paginator
 from shop.models import Product, Category
 from cart.forms import QuantityForm
 
@@ -12,8 +11,6 @@ def paginat(request, list_objects):
 	page_number = request.GET.get('page')
 	try:
 		page_obj = p.get_page(page_number)
-	except PageNotAnInteger:
-		page_obj = p.page(1)
 	except EmptyPage:
 		page_obj = p.page(p.num_pages)
 	return page_obj

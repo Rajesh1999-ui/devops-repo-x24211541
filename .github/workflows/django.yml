@@ -94,15 +94,15 @@ jobs:
 
       - name: Run SonarCloud Scan
         env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-          SONAR_PROJECT_KEY: ${{ secrets.SONAR_PROJECT_KEY }}
-          SONAR_ORG: ${{ secrets.SONAR_ORG }}
+          SONAR_TOKEN: ca73ff74268e903280f3920f6681b317629a1386
+          SONAR_PROJECT_KEY: Rajesh1999-ui_devops-repo-x24211541
+          SONAR_ORG: rajesh1999-ui
         run: |
           sonar-scanner \
-            -Dsonar.login=ca73ff74268e903280f3920f6681b317629a1386 \
+            -Dsonar.login=$SONAR_TOKEN \
             -Dsonar.host.url=https://sonarcloud.io \
-            -Dsonar.projectKey=Rajesh1999-ui_devops-repo-x24211541 \
-            -Dsonar.organization=rajesh1999-ui \
+            -Dsonar.projectKey=$SONAR_PROJECT_KEY \
+            -Dsonar.organization=$SONAR_ORG \
             -Dsonar.sources=. \
             -Dsonar.python.coverage.reportPaths=coverage.xml \
             -Dsonar.exclusions=.c9/**,**/migrations/**,**/__pycache__/**,**/tests.py

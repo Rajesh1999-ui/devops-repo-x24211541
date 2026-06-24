@@ -1,0 +1,7 @@
+Django
+django-crispy-forms
+Pillow
+sqlparse
+django-crispy-forms
+crispy-bootstrap4
+boto3

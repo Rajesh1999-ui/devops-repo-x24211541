@@ -1,5 +1,5 @@
+"""Admin configuration for shop app."""
 from django.contrib import admin
-
 from .models import Category, Product
 
 admin.site.register(Category)

@@ -1,9 +1,11 @@
+"""Models for shop app."""
 from django.db import models
 from django.urls import reverse
 from django.template.defaultfilters import slugify
 
 
 class Category(models.Model):
+    """Category model for products."""
     title = models.CharField(max_length=200)
     sub_category = models.ForeignKey(
         'self', on_delete=models.CASCADE,
@@ -13,17 +15,21 @@ class Category(models.Model):
     slug = models.SlugField(max_length=200, unique=True)
 
     def __str__(self):
-        return self.title
+        """Return string representation of category."""
+        return str(self.title)
 
     def get_absolute_url(self):
-        return reverse('shop:product_detail', kwargs={'slug':self.slug})
+        """Get absolute URL for category."""
+        return reverse('shop:product_detail', kwargs={'slug': self.slug})
 
-    def save(self, *args, **kwargs): # new
+    def save(self, *args, **kwargs):
+        """Save category with auto-generated slug."""
         self.slug = slugify(self.title)
         return super().save(*args, **kwargs)
-        
+
 
 class Product(models.Model):
+    """Product model for shop items."""
     category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name='category')
     image = models.ImageField(upload_to='products')
     title = models.CharField(max_length=250)
@@ -33,14 +39,18 @@ class Product(models.Model):
     slug = models.SlugField(unique=True)
 
     class Meta:
+        """Meta class for Product."""
         ordering = ('-date_created',)
 
     def __str__(self):
-        return self.slug
-        
+        """Return string representation of product."""
+        return str(self.slug)
+
     def get_absolute_url(self):
-        return reverse('shop:product_detail', kwargs={'slug':self.slug})
+        """Get absolute URL for product."""
+        return reverse('shop:product_detail', kwargs={'slug': self.slug})
 
     def save(self, *args, **kwargs):
+        """Save product with auto-generated slug."""
         self.slug = slugify(self.title)
         return super().save(*args, **kwargs)

@@ -1,4 +1,4 @@
-#online_shop.urls.py
+"""URL configuration for e_store project."""
 from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
@@ -14,8 +14,5 @@ urlpatterns = [
     path('dashboard/', include('dashboard.urls', namespace='dashboard')),
 ]
 
-
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
-    
-    

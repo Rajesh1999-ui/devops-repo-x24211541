@@ -1,3 +1,4 @@
+"""URL configuration for orders app."""
 from django.urls import path
 
 from orders import views

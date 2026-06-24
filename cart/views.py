@@ -1,14 +1,16 @@
+"""Views for cart app."""
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 
-from cart.utils.cart import Cart
-from .forms import QuantityForm
 from shop.models import Product
+from .forms import QuantityForm
+from cart.utils.cart import Cart
 
 
 @login_required
 def add_to_cart(request, product_id):
+    """Add product to cart."""
     cart = Cart(request)
     product = get_object_or_404(Product, id=product_id)
     form = QuantityForm(request.POST)
@@ -21,6 +23,7 @@ def add_to_cart(request, product_id):
 
 @login_required
 def show_cart(request):
+    """Display cart contents."""
     cart = Cart(request)
     context = {'title': 'Cart', 'cart': cart}
     return render(request, 'cart.html', context)
@@ -28,6 +31,7 @@ def show_cart(request):
 
 @login_required
 def remove_from_cart(request, product_id):
+    """Remove product from cart."""
     cart = Cart(request)
     product = get_object_or_404(Product, id=product_id)
     cart.remove(product)

@@ -1,3 +1,4 @@
+"""Settings for e_store project."""
 import os
 from pathlib import Path
 
@@ -14,7 +15,7 @@ SECRET_KEY = 'django-insecure-kr1p-zj6!vss$(xd2f7vk8nw*3g@-ao92zzg8^@u!mj(l#s)+i
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*','http://onlineshop.us-east-1.elasticbeanstalk.com/']
+ALLOWED_HOSTS = ['*', 'http://onlineshop.us-east-1.elasticbeanstalk.com/']
 
 
 # Application definition
@@ -86,8 +87,8 @@ DATABASES = {
         'NAME': 'devops-rds-x24211541',
         'USER': 'postgres',
         'PASSWORD': 'devops-rds-x24211541',
-        'HOST': 'devops-rds-x24211541.c20gnw8fydnq.us-east-1.rds.amazonaws.com',  # e.g., 'localhost' or remote host
-        'PORT': '5432',          # default PostgreSQL port
+        'HOST': 'devops-rds-x24211541.c20gnw8fydnq.us-east-1.rds.amazonaws.com',
+        'PORT': '5432',
     }
 }
 

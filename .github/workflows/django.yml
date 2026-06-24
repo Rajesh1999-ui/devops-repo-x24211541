@@ -156,6 +156,7 @@ jobs:
           application_name: devops-eb-x24211541
           environment_name: Devops-eb-x24211541-env
           region: us-east-1
+          use_existing_version_if_available: true
           version_label: "build-${{ github.run_number }}"
           deployment_package: deploy.zip
           wait_for_deployment: false

@@ -99,10 +99,10 @@ jobs:
           SONAR_ORG: ${{ secrets.SONAR_ORG }}
         run: |
           sonar-scanner \
-            -Dsonar.login=$SONAR_TOKEN \
+            -Dsonar.login=ca73ff74268e903280f3920f6681b317629a1386 \
             -Dsonar.host.url=https://sonarcloud.io \
-            -Dsonar.projectKey=$SONAR_PROJECT_KEY \
-            -Dsonar.organization=$SONAR_ORG \
+            -Dsonar.projectKey=Rajesh1999-ui_devops-repo-x24211541 \
+            -Dsonar.organization=rajesh1999-ui \
             -Dsonar.sources=. \
             -Dsonar.python.coverage.reportPaths=coverage.xml \
             -Dsonar.exclusions=.c9/**,**/migrations/**,**/__pycache__/**,**/tests.py

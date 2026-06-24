@@ -1,127 +1,134 @@
-
-
 {% extends "base.html" %}
 {% load crispy_forms_tags %}
 
 {% block content %}
 <style>
-    .auth-container {
-        max-width: 500px;
-        margin: 60px auto;
-        background: white;
-        border-radius: 25px;
+    .login-wrapper {
+        min-height: 80vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: linear-gradient(135deg, #f0f4f8 0%, #d9e2ec 100%);
+        padding: 40px 20px;
+    }
+    .login-card {
+        background: rgba(255, 255, 255, 0.95);
+        backdrop-filter: blur(20px);
+        border-radius: 24px;
         padding: 50px;
-        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+        max-width: 450px;
+        width: 100%;
+        box-shadow: 0 20px 60px rgba(0, 20, 40, 0.12);
+        border: 1px solid rgba(255, 255, 255, 0.3);
     }
-    .auth-title {
-        font-size: 2.5rem;
+    .login-icon {
+        text-align: center;
+        margin-bottom: 25px;
+    }
+    .login-icon svg {
+        width: 70px;
+        height: 70px;
+        fill: #4A90D9;
+    }
+    .login-title {
+        font-size: 30px;
         font-weight: 700;
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
+        color: #1a2a3a;
         text-align: center;
-        margin-bottom: 10px;
+        margin-bottom: 5px;
     }
-    .auth-subtitle {
+    .login-subtitle {
         text-align: center;
-        color: #718096;
-        margin-bottom: 40px;
+        color: #6b7a8a;
+        font-size: 15px;
+        margin-bottom: 35px;
     }
-    .form-control {
+    .login-card .form-control {
         border: 2px solid #e2e8f0;
         border-radius: 12px;
-        padding: 12px 20px;
-        font-size: 1rem;
+        padding: 12px 18px;
+        font-size: 15px;
         transition: all 0.3s ease;
+        background: #f8fafc;
     }
-    .form-control:focus {
-        border-color: #667eea;
-        box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+    .login-card .form-control:focus {
+        border-color: #4A90D9;
+        box-shadow: 0 0 0 4px rgba(74, 144, 217, 0.15);
+        background: white;
     }
-    .form-label {
+    .login-card label {
         font-weight: 600;
         color: #2d3748;
-        margin-bottom: 8px;
+        font-size: 14px;
+        margin-bottom: 6px;
     }
-    .btn-submit {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    .btn-login {
+        background: linear-gradient(135deg, #4A90D9, #357ABD);
         border: none;
         color: white;
-        padding: 15px;
-        font-size: 1.1rem;
+        padding: 14px;
         font-weight: 600;
         border-radius: 12px;
+        font-size: 16px;
         transition: all 0.3s ease;
+        width: 100%;
     }
-    .btn-submit:hover {
+    .btn-login:hover {
         transform: translateY(-2px);
-        box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+        box-shadow: 0 8px 30px rgba(74, 144, 217, 0.35);
+        color: white;
     }
-    .forgot-password {
-        color: #e53e3e;
+    .forgot-link {
+        color: #4A90D9;
         text-decoration: none;
         font-weight: 600;
+        font-size: 14px;
         transition: all 0.3s ease;
     }
-    .forgot-password:hover {
-        color: #c53030;
+    .forgot-link:hover {
+        color: #357ABD;
         text-decoration: underline;
     }
-    .signup-link {
+    .signup-section {
         text-align: center;
         margin-top: 30px;
-        padding-top: 30px;
+        padding-top: 25px;
         border-top: 2px solid #e2e8f0;
     }
-    .signup-link a {
-        color: #667eea;
+    .signup-section a {
+        color: #4A90D9;
         font-weight: 600;
         text-decoration: none;
         transition: all 0.3s ease;
     }
-    .signup-link a:hover {
-        color: #764ba2;
+    .signup-section a:hover {
+        color: #357ABD;
         text-decoration: underline;
     }
-    .icon-wrapper {
-        text-align: center;
-        margin-bottom: 30px;
-    }
-    .icon-wrapper i {
-        font-size: 60px;
-        color: #667eea;
+    .signup-section span {
+        color: #6b7a8a;
     }
 </style>
 
-<div class="auth-container">
-    <div class="icon-wrapper">
-        <i class="material-icons">account_circle</i>
-    </div>
-    
-    <h3 class="auth-title">Welcome Back!</h3>
-    <p class="auth-subtitle">Please login to your account</p>
-    
-    <form method="POST">
-        {% csrf_token %}
-        {{ form|crispy }}
-        
-        <div class="form-group mt-4">
-            <button class="btn btn-submit w-100" type="submit">
-                Login to Account
-            </button>
+<div class="login-wrapper">
+    <div class="login-card">
+        <div class="login-icon">
+            <svg viewBox="0 0 24 24"><path d="M12 12c2.76 0 5-2.24 5-5s-2.24-5-5-5-5 2.24-5 5 2.24 5 5 5zm0 2c-3.33 0-10 1.67-10 5v2h20v-2c0-3.33-6.67-5-10-5z"/></svg>
         </div>
-        
-        <div class="text-center mt-3">
-            <a class="forgot-password" href="{% url 'accounts:password_reset' %}">
-                Forgot Password?
-            </a>
+        <h2 class="login-title">Welcome Back</h2>
+        <p class="login-subtitle">Sign in to your account</p>
+        <form method="POST">
+            {% csrf_token %}
+            {{ form|crispy }}
+            <button class="btn-login mt-3" type="submit">Sign In</button>
+            <div class="text-center mt-3">
+                <a class="forgot-link" href="{% url 'accounts:password_reset' %}">Forgot password?</a>
+            </div>
+        </form>
+        <div class="signup-section">
+            <span>Don't have an account?</span>
+            <a href="{% url 'accounts:user_register' %}">Create one</a>
         </div>
-    </form>
-    
-    <div class="signup-link">
-        <span class="text-muted">New to our platform?</span>
-        <a href="{% url 'accounts:user_register' %}">Create an Account</a>
     </div>
 </div>
 {% endblock %}

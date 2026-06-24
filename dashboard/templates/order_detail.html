@@ -1,88 +1,96 @@
-
 <!-- order_detail.html - Order Detail View (Dashboard) -->
 {% extends "dashboard.html" %}
 
 {% block content %}
 <style>
-    .order-status {
+    .status-box {
         text-align: center;
-        padding: 30px;
-        border-radius: 15px;
+        padding: 25px;
+        border-radius: 16px;
         margin-bottom: 30px;
     }
-    .status-success-box {
-        background: #c6f6d5;
-        border: 2px solid #48bb78;
+    .status-box.success {
+        background: #e6f7ed;
+        border: 2px solid #48BB78;
     }
-    .status-success-box h4 {
-        color: #22543d;
+    .status-box.success h4 {
+        color: #276749;
         font-weight: 700;
-        font-size: 2rem;
+        font-size: 24px;
         margin: 0;
     }
-    .status-cancelled-box {
-        background: #fed7d7;
+    .status-box.cancelled {
+        background: #fde8e8;
         border: 2px solid #e53e3e;
     }
-    .status-cancelled-box h3 {
-        color: #742a2a;
+    .status-box.cancelled h4 {
+        color: #9b2c2c;
         font-weight: 700;
-        font-size: 2rem;
+        font-size: 24px;
         margin: 0;
     }
-    .order-item-card {
-        background: linear-gradient(135deg, #f6f9fc 0%, #ffffff 100%);
-        border-radius: 15px;
-        padding: 25px;
-        margin-bottom: 20px;
-        border-left: 5px solid #667eea;
-        box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+    .item-card {
+        background: #f8fafc;
+        border-radius: 14px;
+        padding: 20px 22px;
+        margin-bottom: 15px;
+        border-left: 4px solid #4A90D9;
+        transition: all 0.3s ease;
     }
-    .order-item-card p {
-        margin: 10px 0;
+    .item-card:hover {
+        background: #e8f0fe;
+    }
+    .item-card p {
+        margin: 6px 0;
         color: #4a5568;
-        font-weight: 500;
     }
-    .order-item-card a {
-        color: #667eea;
+    .item-card a {
+        color: #4A90D9;
         font-weight: 600;
         text-decoration: none;
     }
-    .order-item-card a:hover {
-        color: #764ba2;
+    .item-card a:hover {
         text-decoration: underline;
     }
-    .order-total-card {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    .total-box {
+        background: linear-gradient(135deg, #4A90D9, #357ABD);
         color: white;
-        padding: 25px;
-        border-radius: 15px;
-        margin-top: 30px;
+        padding: 22px 28px;
+        border-radius: 14px;
+        margin-top: 25px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
     }
-    .order-total-card h4 {
-        font-size: 2rem;
+    .total-box h4 {
+        font-size: 22px;
         font-weight: 700;
         margin: 0;
     }
+    .total-box .label {
+        font-weight: 500;
+        opacity: 0.9;
+    }
 </style>
 
-<div class="order-status {% if order.status %}status-success-box{% else %}status-cancelled-box{% endif %}">
+<div class="status-box {% if order.status %}success{% else %}cancelled{% endif %}">
     {% if order.status %}
     <h4>✓ Order Successful</h4>
     {% else %}
-    <h3>✕ Order Cancelled</h3>
+    <h4>✕ Order Cancelled</h4>
     {% endif %}
 </div>
 
 {% for item in items %}
-<div class="order-item-card">
+<div class="item-card">
     <p><strong>Product:</strong> <a href="{{ item.product.get_absolute_url }}">{{ item.product.title }}</a></p>
     <p><strong>Price:</strong> ${{ item.price }}</p>
     <p><strong>Quantity:</strong> {{ item.quantity }}</p>
 </div>
 {% endfor %}
 
-<div class="order-total-card">
-    <h4>Total Amount: ${{ order.get_total_price }}</h4>
+<div class="total-box">
+    <span class="label">Total Amount</span>
+    <h4>${{ order.get_total_price }}</h4>
 </div>
 {% endblock %}

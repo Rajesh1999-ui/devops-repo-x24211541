@@ -1,138 +1,146 @@
-
 {% extends "base.html" %}
 
 {% block content %}
 <style>
-    .checkout-container {
-        max-width: 700px;
-        margin: 60px auto;
-        background: white;
-        border-radius: 25px;
-        padding: 50px;
-        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+    .checkout-wrapper {
+        background: rgba(255, 255, 255, 0.92);
+        backdrop-filter: blur(10px);
+        border-radius: 24px;
+        padding: 45px;
+        max-width: 650px;
+        margin: 0 auto;
+        box-shadow: 0 5px 25px rgba(0, 20, 40, 0.08);
     }
     .checkout-icon {
         text-align: center;
-        margin-bottom: 30px;
+        margin-bottom: 25px;
     }
-    .checkout-icon i {
-        font-size: 80px;
-        color: #667eea;
+    .checkout-icon svg {
+        width: 70px;
+        height: 70px;
+        fill: #4A90D9;
     }
     .checkout-title {
-        font-size: 2.5rem;
+        font-size: 30px;
         font-weight: 700;
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
+        color: #1a2a3a;
         text-align: center;
-        margin-bottom: 40px;
+        margin-bottom: 8px;
     }
-    .amount-section {
-        background: linear-gradient(135deg, #f6f9fc 0%, #ffffff 100%);
-        border-radius: 20px;
-        padding: 40px;
+    .checkout-subtitle {
         text-align: center;
-        margin-bottom: 40px;
-        border: 2px solid #e2e8f0;
+        color: #6b7a8a;
+        font-size: 16px;
+        margin-bottom: 35px;
     }
-    .amount-label {
-        color: #718096;
-        font-size: 1.2rem;
-        margin-bottom: 10px;
+    .amount-box {
+        background: linear-gradient(135deg, #e8f0fe 0%, #d4e0f0 100%);
+        border-radius: 18px;
+        padding: 30px;
+        text-align: center;
+        margin-bottom: 30px;
     }
-    .amount-value {
-        font-size: 3rem;
-        font-weight: 700;
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
+    .amount-box .label {
+        color: #6b7a8a;
+        font-size: 14px;
+        font-weight: 500;
+    }
+    .amount-box .value {
+        font-size: 40px;
+        font-weight: 800;
+        color: #1a2a3a;
+    }
+    .amount-box .value span {
+        color: #4A90D9;
+    }
+    .info-notice {
+        background: #f8fafc;
+        border-left: 4px solid #4A90D9;
+        padding: 16px 20px;
+        border-radius: 10px;
+        margin-bottom: 30px;
+        color: #4a5568;
+        font-size: 15px;
     }
     .confirmation-text {
         text-align: center;
-        font-size: 1.2rem;
-        color: #2d3748;
+        font-size: 18px;
         font-weight: 600;
-        margin-bottom: 40px;
+        color: #1a2a3a;
+        margin-bottom: 30px;
     }
-    .action-buttons {
+    .action-group {
         display: flex;
-        gap: 20px;
+        gap: 16px;
     }
-    .btn-back {
-        background: white;
-        border: 2px solid #e53e3e;
-        color: #e53e3e;
+    .action-group .btn-back {
+        border: 2px solid #e2e8f0;
+        color: #4a5568;
+        background: transparent;
         font-weight: 600;
-        padding: 15px 30px;
+        padding: 14px 30px;
         border-radius: 12px;
-        transition: all 0.3s ease;
         flex: 1;
+        transition: all 0.3s ease;
     }
-    .btn-back:hover {
-        background: #e53e3e;
-        color: white;
-        transform: translateY(-2px);
-        box-shadow: 0 5px 20px rgba(229, 62, 62, 0.3);
+    .action-group .btn-back:hover {
+        border-color: #e53e3e;
+        color: #e53e3e;
+        background: #fde8e8;
     }
-    .btn-continue {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    .action-group .btn-continue {
+        background: linear-gradient(135deg, #4A90D9, #357ABD);
         border: none;
         color: white;
         font-weight: 600;
-        padding: 15px 30px;
+        padding: 14px 30px;
         border-radius: 12px;
-        transition: all 0.3s ease;
         flex: 1;
+        transition: all 0.3s ease;
+        text-align: center;
+        text-decoration: none;
     }
-    .btn-continue:hover {
+    .action-group .btn-continue:hover {
         transform: translateY(-2px);
-        box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+        box-shadow: 0 8px 25px rgba(74, 144, 217, 0.3);
         color: white;
     }
-    .info-box {
-        background: #edf2f7;
-        border-left: 4px solid #667eea;
-        padding: 20px;
-        border-radius: 12px;
-        margin-bottom: 30px;
-    }
-    .info-box p {
-        margin: 0;
-        color: #4a5568;
-        font-size: 0.95rem;
+    @media (max-width: 768px) {
+        .checkout-wrapper {
+            padding: 25px 20px;
+        }
+        .amount-box .value {
+            font-size: 30px;
+        }
+        .action-group {
+            flex-direction: column;
+        }
     }
 </style>
 
-<div class="checkout-container">
+<div class="checkout-wrapper">
     <div class="checkout-icon">
-        <i class="material-icons">payment</i>
+        <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 14H4V6h16v12zM6 10h2v2H6zm0 4h8v2H6zm10 0h2v2h-2zm-6-4h8v2h-8z"/></svg>
     </div>
-    
     <h1 class="checkout-title">Checkout</h1>
-    
-    <div class="amount-section">
-        <div class="amount-label">Order Total</div>
-        <div class="amount-value">${{ order.get_total_price }}</div>
+    <p class="checkout-subtitle">Review your order before payment</p>
+
+    <div class="amount-box">
+        <div class="label">Order Total</div>
+        <div class="value">$<span>{{ order.get_total_price }}</span></div>
     </div>
 
-    <div class="info-box">
-        <p>📌 Your order is ready for payment. Please review the amount and proceed to complete your purchase.</p>
+    <div class="info-notice">
+        📌 Your order is ready for payment. Review the amount and proceed.
     </div>
-    
+
     <div class="confirmation-text">
         Do you want to continue and pay?
     </div>
-    
-    <div class="action-buttons">
-        <a href="{% url 'cart:show_cart' %}" class="btn btn-back">
-            ← Back to Cart
-        </a>
-        <a href="{% url 'orders:create_order' %}" class="btn btn-continue">
-            Continue & Pay →
-        </a>
+
+    <div class="action-group">
+        <a href="{% url 'cart:show_cart' %}" class="btn-back">← Back to Cart</a>
+        <a href="{% url 'orders:create_order' %}" class="btn-continue">Continue →</a>
     </div>
 </div>
 {% endblock %}

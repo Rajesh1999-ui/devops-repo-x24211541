@@ -1,166 +1,212 @@
-
 {% extends "base.html" %}
 
 {% block content %}
 <style>
+    .orders-wrapper {
+        background: rgba(255, 255, 255, 0.92);
+        backdrop-filter: blur(10px);
+        border-radius: 24px;
+        padding: 35px;
+        box-shadow: 0 5px 25px rgba(0, 20, 40, 0.08);
+    }
     .orders-header {
-        text-align: center;
-        margin-bottom: 50px;
-    }
-    .orders-title {
-        font-size: 3rem;
-        font-weight: 700;
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-    }
-    .order-card {
-        background: white;
-        border-radius: 20px;
-        padding: 30px;
-        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
-        margin-bottom: 30px;
-        transition: all 0.3s ease;
-    }
-    .order-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 10px 30px rgba(102, 126, 234, 0.2);
-    }
-    .order-header {
         display: flex;
         justify-content: space-between;
         align-items: center;
+        margin-bottom: 30px;
+        flex-wrap: wrap;
+    }
+    .orders-title {
+        font-size: 28px;
+        font-weight: 700;
+        color: #1a2a3a;
+    }
+    .orders-title span {
+        color: #4A90D9;
+    }
+    .orders-count {
+        background: #e8f0fe;
+        color: #4A90D9;
+        padding: 6px 16px;
+        border-radius: 25px;
+        font-weight: 600;
+        font-size: 14px;
+    }
+    .order-card {
+        background: rgba(255, 255, 255, 0.95);
+        border-radius: 18px;
+        padding: 25px;
         margin-bottom: 20px;
-        padding-bottom: 20px;
-        border-bottom: 2px solid #e2e8f0;
+        border: 1px solid #e8edf5;
+        transition: all 0.3s ease;
+        box-shadow: 0 2px 10px rgba(0, 20, 40, 0.04);
+    }
+    .order-card:hover {
+        border-color: rgba(74, 144, 217, 0.2);
+        box-shadow: 0 8px 25px rgba(74, 144, 217, 0.08);
+    }
+    .order-top {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        margin-bottom: 18px;
+        padding-bottom: 15px;
+        border-bottom: 1px solid #e8edf5;
     }
     .order-id {
         font-weight: 700;
-        color: #667eea;
-        font-size: 1.1rem;
+        color: #4A90D9;
+        font-size: 16px;
     }
-    .status-badge {
-        padding: 8px 20px;
+    .order-status {
+        padding: 5px 16px;
         border-radius: 25px;
         font-weight: 600;
-        font-size: 1rem;
+        font-size: 13px;
     }
-    .status-success {
-        background: #c6f6d5;
-        color: #22543d;
+    .order-status.success {
+        background: #e6f7ed;
+        color: #276749;
     }
-    .status-cancelled {
-        background: #fed7d7;
-        color: #742a2a;
+    .order-status.cancelled {
+        background: #fde8e8;
+        color: #9b2c2c;
     }
     .order-item {
-        background: #f7fafc;
+        background: #f8fafc;
         border-radius: 12px;
-        padding: 20px;
-        margin-bottom: 15px;
-        border-left: 4px solid #667eea;
+        padding: 15px 18px;
+        margin-bottom: 10px;
+        border-left: 3px solid #4A90D9;
     }
     .order-item:last-child {
         margin-bottom: 0;
     }
-    .product-name {
-        color: #2d3748;
+    .order-item .name {
         font-weight: 600;
+        color: #1a2a3a;
         text-decoration: none;
-        font-size: 1.1rem;
         transition: color 0.3s ease;
     }
-    .product-name:hover {
-        color: #667eea;
+    .order-item .name:hover {
+        color: #4A90D9;
     }
-    .item-detail {
-        color: #718096;
-        margin: 5px 0;
+    .order-item .meta {
+        color: #6b7a8a;
+        font-size: 14px;
     }
-    .item-detail strong {
-        color: #2d3748;
+    .order-item .meta strong {
+        color: #1a2a3a;
     }
     .order-total {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        color: white;
-        padding: 20px;
+        background: linear-gradient(135deg, #4A90D9, #357ABD);
         border-radius: 12px;
-        margin-top: 20px;
-        text-align: right;
+        padding: 18px 22px;
+        margin-top: 18px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        color: white;
     }
-    .order-total-amount {
-        font-size: 1.8rem;
+    .order-total .label {
+        font-weight: 500;
+        opacity: 0.9;
+    }
+    .order-total .amount {
+        font-size: 22px;
         font-weight: 700;
     }
-    .empty-orders {
+    .empty-state {
         text-align: center;
-        padding: 100px 20px;
+        padding: 80px 20px;
     }
-    .empty-orders i {
-        font-size: 120px;
-        color: #cbd5e0;
-        margin-bottom: 30px;
-    }
-    .empty-orders h3 {
-        color: #718096;
-        font-size: 2rem;
+    .empty-state svg {
+        width: 80px;
+        height: 80px;
+        fill: #cbd5e0;
         margin-bottom: 20px;
+    }
+    .empty-state h3 {
+        color: #1a2a3a;
+        font-size: 24px;
+    }
+    .empty-state p {
+        color: #6b7a8a;
+        margin-bottom: 20px;
+    }
+    .btn-shop {
+        background: linear-gradient(135deg, #4A90D9, #357ABD);
+        border: none;
+        color: white;
+        font-weight: 600;
+        padding: 12px 35px;
+        border-radius: 12px;
+        transition: all 0.3s ease;
+    }
+    .btn-shop:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 8px 25px rgba(74, 144, 217, 0.3);
+        color: white;
+    }
+    @media (max-width: 768px) {
+        .orders-wrapper {
+            padding: 20px;
+        }
+        .order-top {
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 8px;
+        }
+        .order-total {
+            flex-direction: column;
+            text-align: center;
+            gap: 6px;
+        }
     }
 </style>
 
-{% if orders %}
-<div class="orders-header">
-    <h1 class="orders-title">📦 My Orders</h1>
-    <p class="text-muted" style="font-size: 1.2rem;">{{ orders|length }} order{{ orders|length|pluralize }} found</p>
-</div>
-
-{% for order in orders %}
-<div class="order-card">
-    <div class="order-header">
-        <div>
-            <div class="order-id">Order #{{ order.id }}</div>
-        </div>
-        <div>
-            {% if order.status %}
-            <span class="status-badge status-success">✓ Successful</span>
-            {% else %}
-            <span class="status-badge status-cancelled">✕ Cancelled</span>
-            {% endif %}
-        </div>
+<div class="orders-wrapper">
+    {% if orders %}
+    <div class="orders-header">
+        <h2 class="orders-title">📦 <span>My Orders</span></h2>
+        <span class="orders-count">{{ orders|length }} order{{ orders|length|pluralize }}</span>
     </div>
 
-    {% for item in order.items.all %}
-    <div class="order-item">
-        <div class="mb-2">
-            <a class="product-name" href="{{ item.product.get_absolute_url }}">
-                {{ item.product.title }}
-            </a>
+    {% for order in orders %}
+    <div class="order-card">
+        <div class="order-top">
+            <span class="order-id">Order #{{ order.id }}</span>
+            {% if order.status %}
+            <span class="order-status success">✓ Successful</span>
+            {% else %}
+            <span class="order-status cancelled">✕ Cancelled</span>
+            {% endif %}
         </div>
-        <div class="item-detail">
-            <strong>Price:</strong> ${{ item.price }}
+
+        {% for item in order.items.all %}
+        <div class="order-item">
+            <a href="{{ item.product.get_absolute_url }}" class="name">{{ item.product.title }}</a>
+            <div class="meta">
+                <strong>Price:</strong> ${{ item.price }} &nbsp;|&nbsp; <strong>Qty:</strong> {{ item.quantity }}
+            </div>
         </div>
-        <div class="item-detail">
-            <strong>Quantity:</strong> {{ item.quantity }}
+        {% endfor %}
+
+        <div class="order-total">
+            <span class="label">Total Amount</span>
+            <span class="amount">${{ order.get_total_price }}</span>
         </div>
     </div>
     {% endfor %}
 
-    <div class="order-total">
-        <div>Total Amount</div>
-        <div class="order-total-amount">${{ order.get_total_price }}</div>
+    {% else %}
+    <div class="empty-state">
+        <svg viewBox="0 0 24 24"><path d="M20 4H4v16h16V4zm-2 14H6V6h12v12z"/></svg>
+        <h3>No orders yet</h3>
+        <p>Start shopping and place your first order</p>
+        <a href="{% url 'shop:home_page' %}" class="btn-shop">Browse Products</a>
     </div>
+    {% endif %}
 </div>
-{% endfor %}
-
-{% else %}
-<div class="empty-orders">
-    <i class="material-icons">shopping_bag</i>
-    <h3>No Orders Yet!</h3>
-    <p class="text-muted mb-4">You haven't placed any orders yet. Start shopping now!</p>
-    <a href="{% url 'shop:home_page' %}" class="btn btn-gradient btn-lg px-5">
-        Start Shopping
-    </a>
-</div>
-{% endif %}
 {% endblock %}

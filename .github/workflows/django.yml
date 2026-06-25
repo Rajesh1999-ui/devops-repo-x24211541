@@ -53,22 +53,25 @@ jobs:
         run: |
           pip install --upgrade pip
           pip install -r requirements.txt
-          pip install pylint coverage
+          pip install pylint coverage pylint-django
 
       - name: Run Pylint
         continue-on-error: true
         run: |
-          pylint $(git ls-files '*.py' | grep -Ev 'migrations|\.c9') || true
+          pylint $(git ls-files '*.py' | grep -Ev 'migrations|\.c9|manage.py|settings.py|__init__.py') || true
 
-      # - name: Run Django Tests
-      #   run: |
-      #     coverage run --source='.' manage.py test
-      #     coverage xml -i
-      
       - name: Run Django Tests
         run: |
           coverage run --source='accounts' manage.py test accounts -v 2
           coverage xml -i
+
+      - name: Upload Coverage Report
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage-report
+          path: coverage.xml
+          retention-days: 5
+
 
   sonar_stage:
     runs-on: ubuntu-latest
@@ -83,6 +86,16 @@ jobs:
         with:
           name: coverage-report
 
+      - name: Verify Coverage Report
+        run: |
+          if [ -f coverage.xml ]; then
+            echo "coverage.xml downloaded successfully"
+            ls -la coverage.xml
+          else
+            echo "coverage.xml not found!"
+            exit 1
+          fi
+
       - name: Install Sonar Scanner
         run: |
           wget https://binaries.sonarsource.com/Distribution/sonar-scanner-cli/sonar-scanner-cli-5.0.1.3006-linux.zip
@@ -92,7 +105,7 @@ jobs:
 
       - name: Run SonarCloud Scan
         env:
-          SONAR_TOKEN: ca73ff74268e903280f3920f6681b317629a1386
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           SONAR_PROJECT_KEY: Rajesh1999-ui_devops-repo-x24211541
           SONAR_ORG: rajesh1999-ui
         run: |
@@ -158,3 +171,4 @@ jobs:
           version_label: "build-${{ github.run_number }}"
           deployment_package: deploy.zip
           wait_for_deployment: false
+          

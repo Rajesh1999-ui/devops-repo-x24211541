@@ -6,3 +6,4 @@ class ShopConfig(AppConfig):
     """Configuration class for shop app."""
     default_auto_field = 'django.db.models.BigAutoField'
     name = 'shop'
+    

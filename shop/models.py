@@ -54,3 +54,4 @@ class Product(models.Model):
         """Save product with auto-generated slug."""
         self.slug = slugify(self.title)
         return super().save(*args, **kwargs)
+        

@@ -13,3 +13,4 @@ def return_categories(request):
     """Return categories for all templates."""
     categories = Category.objects.all()
     return {'categories': categories}
+    

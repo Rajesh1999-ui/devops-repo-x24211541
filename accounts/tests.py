@@ -29,22 +29,24 @@ class UserModelTest(TestCase):
         self.assertTrue(self.user.check_password('testpass123'))
 
     def test_create_user_without_email(self):
-        """Test creating user without email raises error."""
-        with self.assertRaises(TypeError):
+        """Test creating user without email raises ValueError."""
+        with self.assertRaises(ValueError) as cm:
             User.objects.create_user(
                 email=None,
                 full_name='Test User',
                 password='testpass123'
             )
+        self.assertEqual(str(cm.exception), 'Email is required!')
 
     def test_create_user_without_full_name(self):
-        """Test creating user without full_name raises error."""
-        with self.assertRaises(TypeError):
+        """Test creating user without full_name raises ValueError."""
+        with self.assertRaises(ValueError) as cm:
             User.objects.create_user(
                 email='test@example.com',
                 full_name=None,
                 password='testpass123'
             )
+        self.assertEqual(str(cm.exception), 'full name is required!')
 
     def test_create_superuser(self):
         """Test creating a superuser."""
@@ -81,9 +83,9 @@ class UserModelTest(TestCase):
 
     def test_user_likes_count(self):
         """Test get_likes_count method."""
-        # Create a category
+        # Create a category (use correct field names)
         category = Category.objects.create(
-            name='Test Category',
+            title='Test Category',  # Assuming 'title' instead of 'name'
             slug='test-category'
         )
         
@@ -146,13 +148,14 @@ class UserManagerTest(TestCase):
         self.assertTrue(superuser.is_staff)
 
     def test_create_user_without_email_raises_error(self):
-        """Test creating user without email raises error."""
-        with self.assertRaises(ValueError):
+        """Test creating user without email raises ValueError."""
+        with self.assertRaises(ValueError) as cm:
             User.objects.create_user(
                 email='',
                 full_name='Test',
                 password='testpass'
             )
+        self.assertEqual(str(cm.exception), 'Email is required!')
 
     def test_create_superuser_without_is_admin(self):
         """Test creating superuser sets is_admin to True."""

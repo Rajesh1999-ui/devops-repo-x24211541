@@ -6,7 +6,6 @@ from shop.models import Product, Category
 
 User = get_user_model()
 
-
 class UserModelTest(TestCase):
     """Test cases for User model."""
 
@@ -88,7 +87,6 @@ class UserModelTest(TestCase):
             title='Test Category',  # Assuming 'title' instead of 'name'
             slug='test-category'
         )
-        
         # Create products
         product1 = Product.objects.create(
             title='Product 1',
@@ -102,14 +100,11 @@ class UserModelTest(TestCase):
             price=200,
             category=category
         )
-        
         # Initially likes count should be 0
         self.assertEqual(self.user.get_likes_count(), 0)
-        
         # Add likes
         self.user.likes.add(product1)
         self.assertEqual(self.user.get_likes_count(), 1)
-        
         self.user.likes.add(product2)
         self.assertEqual(self.user.get_likes_count(), 2)
 
@@ -165,7 +160,6 @@ class UserManagerTest(TestCase):
             password='superpass123'
         )
         self.assertTrue(superuser.is_admin)
-
 
 class UserModelFieldTest(TestCase):
     """Test cases for User model fields."""

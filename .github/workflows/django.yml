@@ -115,6 +115,7 @@ jobs:
             -Dsonar.projectKey=$SONAR_PROJECT_KEY \
             -Dsonar.organization=$SONAR_ORG \
             -Dsonar.sources=. \
+            -Dsonar.inclusions=**/*.py \
             -Dsonar.python.coverage.reportPaths=coverage.xml \
             -Dsonar.exclusions=.c9/**,**/migrations/**,**/__pycache__/**,**/tests.py
 

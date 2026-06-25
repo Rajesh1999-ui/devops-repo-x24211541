@@ -23,6 +23,8 @@
             box-shadow: 0 4px 20px rgba(0, 20, 40, 0.06);
             padding: 14px 0;
             border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+            position: relative;
+            z-index: 99998;
         }
         .brand-name {
             font-size: 24px;
@@ -123,7 +125,9 @@
             color: white;
             transform: translateY(-2px);
         }
+        /* FIX: Higher z-index for dropdowns */
         .dropdown-menu {
+            z-index: 99999 !important;
             border: none;
             box-shadow: 0 15px 40px rgba(0, 20, 40, 0.12);
             border-radius: 16px;

@@ -105,7 +105,7 @@ jobs:
 
       - name: Run SonarCloud Scan
         env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_TOKEN: ca73ff74268e903280f3920f6681b317629a1386
           SONAR_PROJECT_KEY: Rajesh1999-ui_devops-repo-x24211541
           SONAR_ORG: rajesh1999-ui
         run: |

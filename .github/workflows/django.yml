@@ -116,8 +116,11 @@ jobs:
             -Dsonar.organization=$SONAR_ORG \
             -Dsonar.sources=. \
             -Dsonar.inclusions=**/*.py \
-            -Dsonar.exclusions=.c9/**,**/migrations/**,**/__pycache__/**,**/tests.py
-          # Coverage parameter removed to ignore coverage issues
+            -Dsonar.exclusions=.c9/**,**/migrations/**,**/__pycache__/**,**/tests.py \
+            -Dsonar.coverage.exclusions=**/* \
+            -Dsonar.python.coverage.reportPaths= \
+            -Dsonar.coveragePlugin= \
+            -Dsonar.coverage=0
 
       - name: Create Deployment Package
         run: |

@@ -55,10 +55,19 @@ jobs:
           pip install -r requirements.txt
           pip install pylint coverage
 
+      # - name: Run Pylint
+      #   continue-on-error: true
+      #   run: |
+      #     pylint $(git ls-files '*.py' | grep -Ev 'migrations|\.c9') || true
+      
       - name: Run Pylint
-        continue-on-error: true
-        run: |
-          pylint $(git ls-files '*.py' | grep -Ev 'migrations|\.c9') || true
+      continue-on-error: true
+      run: |
+        # Run pylint with Django plugin on all Python files
+        pylint --load-plugins=pylint_django \
+               --disable=R0801 \
+               --fail-under=8.0 \
+               $(git ls-files '*.py' | grep -Ev 'migrations|\.c9|manage.py|settings.py') || true
 
       - name: Run Django Tests
         run: |

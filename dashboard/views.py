@@ -1,4 +1,5 @@
 """Views for dashboard app."""
+# pylint: disable=no-member
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -47,18 +48,18 @@ def add_product(request):
 
 @user_passes_test(is_manager)
 @login_required
-def delete_product(request, id):
+def delete_product(request, product_id):
     """Delete a product."""
-    Product.objects.filter(id=id).delete()
+    Product.objects.filter(id=product_id).delete()
     messages.success(request, 'product has been deleted!', 'success')
     return redirect('dashboard:products')
 
 
 @user_passes_test(is_manager)
 @login_required
-def edit_product(request, id):
+def edit_product(request, product_id):
     """Edit an existing product."""
-    product = get_object_or_404(Product, id=id)
+    product = get_object_or_404(Product, id=product_id)
     if request.method == 'POST':
         form = EditProductForm(request.POST, request.FILES, instance=product)
         if form.is_valid():
@@ -98,9 +99,9 @@ def orders(request):
 
 @user_passes_test(is_manager)
 @login_required
-def order_detail(request, id):
+def order_detail(request, order_id):
     """Display order details."""
-    order = Order.objects.filter(id=id).first()
+    order = Order.objects.filter(id=order_id).first()
     items = OrderItem.objects.filter(order=order).all()
     context = {'title': 'order detail', 'items': items, 'order': order}
     return render(request, 'order_detail.html', context)

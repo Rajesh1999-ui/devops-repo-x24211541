@@ -41,3 +41,4 @@ class OrderItem(models.Model):
     def get_cost(self):
         """Calculate cost of this order item."""
         return self.price * self.quantity
+        

@@ -104,3 +104,4 @@ def order_detail(request, id):
     items = OrderItem.objects.filter(order=order).all()
     context = {'title': 'order detail', 'items': items, 'order': order}
     return render(request, 'order_detail.html', context)
+    

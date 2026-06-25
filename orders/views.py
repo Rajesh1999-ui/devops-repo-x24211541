@@ -44,3 +44,4 @@ def user_orders(request):
     orders = request.user.orders.all()
     context = {'title': 'Orders', 'orders': orders}
     return render(request, 'user_orders.html', context)
+    

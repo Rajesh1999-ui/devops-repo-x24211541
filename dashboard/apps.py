@@ -6,3 +6,4 @@ class DashboardConfig(AppConfig):
     """Configuration class for dashboard app."""
     default_auto_field = 'django.db.models.BigAutoField'
     name = 'dashboard'
+    

@@ -91,3 +91,4 @@ def filter_by_category(request, slug):
 
     context = {'products': paginat(request, result)}
     return render(request, 'home_page.html', context)
+    

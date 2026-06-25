@@ -1,4 +1,5 @@
 """Forms for dashboard app."""
+# pylint: disable=too-few-public-methods
 from django.forms import ModelForm
 
 from shop.models import Product, Category

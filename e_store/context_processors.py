@@ -2,7 +2,6 @@
 from cart.utils.cart import Cart
 from shop.models import Category
 
-
 def return_cart(request):
     """Return cart count for all templates."""
     cart = len(list(Cart(request)))

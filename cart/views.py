@@ -2,10 +2,10 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
-
 from shop.models import Product
-from .forms import QuantityForm
 from cart.utils.cart import Cart
+from .forms import QuantityForm
+
 
 
 @login_required

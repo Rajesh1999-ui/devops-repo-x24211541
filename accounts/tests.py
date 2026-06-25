@@ -1,4 +1,5 @@
 """Tests for accounts app."""
+# pylint: disable=no-member, protected-access
 from django.test import TestCase
 from django.contrib.auth import get_user_model
 from django.db import IntegrityError
@@ -116,7 +117,6 @@ class UserModelTest(TestCase):
                 full_name='Another User',
                 password='anotherpass'
             )
-
 
 class UserManagerTest(TestCase):
     """Test cases for UserManager."""
